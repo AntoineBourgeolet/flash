@@ -1,6 +1,6 @@
 /**
  * Anecdotes data organised by date (YYYY-MM-DD) and category.
- * Categories: animaux | espace | histoire
+ * Categories: animaux | espace | histoire | science | culture
  */
 const anecdotes = [
   {

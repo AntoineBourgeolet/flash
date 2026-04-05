@@ -4,17 +4,21 @@ import anecdotes from '../data/anecdotes';
 const STORAGE_KEY = 'flash_category';
 
 const CATEGORIES = [
-  { id: 'animaux', label: 'Animaux', emoji: '🐾' },
-  { id: 'espace',  label: 'Espace',  emoji: '🪐' },
+  { id: 'animaux',  label: 'Animaux',  emoji: '🐾' },
+  { id: 'espace',   label: 'Espace',   emoji: '🪐' },
   { id: 'histoire', label: 'Histoire', emoji: '📜' },
+  { id: 'science',  label: 'Science',  emoji: '🔬' },
+  { id: 'culture',  label: 'Culture',  emoji: '🎨' },
 ];
 
 /**
- * Returns all distinct dates present in the dataset, sorted descending.
+ * Returns all distinct dates present in the dataset that are ≤ today,
+ * sorted descending so the most recent date comes first.
  * @returns {string[]}
  */
 function getAvailableDates() {
-  const set = new Set(anecdotes.map((a) => a.date));
+  const today = new Date().toISOString().slice(0, 10);
+  const set = new Set(anecdotes.map((a) => a.date).filter((d) => d <= today));
   return [...set].sort((a, b) => (a < b ? 1 : -1));
 }
 
