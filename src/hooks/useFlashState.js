@@ -7,14 +7,28 @@ const CATEGORIES = [
   { id: 'animaux', label: 'Animaux', emoji: '🐾' },
   { id: 'espace',  label: 'Espace',  emoji: '🪐' },
   { id: 'histoire', label: 'Histoire', emoji: '📜' },
+  { id: 'science', label: 'Science', emoji: '🔬' },
 ];
 
 /**
- * Returns all distinct dates present in the dataset, sorted descending.
+ * Returns today's date as YYYY-MM-DD string (local time).
+ * @returns {string}
+ */
+function todayStr() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+/**
+ * Returns all distinct dates present in the dataset that are ≤ today, sorted descending.
  * @returns {string[]}
  */
 function getAvailableDates() {
-  const set = new Set(anecdotes.map((a) => a.date));
+  const today = todayStr();
+  const set = new Set(anecdotes.map((a) => a.date).filter((d) => d <= today));
   return [...set].sort((a, b) => (a < b ? 1 : -1));
 }
 
